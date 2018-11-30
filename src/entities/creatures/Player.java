@@ -13,8 +13,8 @@ public class Player extends Creature{
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		bounds.x = 11*2;
 		bounds.y = 19*2;
-		bounds.width = 17;
-		bounds.height = 26;
+		bounds.width = 16;
+		bounds.height = 24;
 	}
 	
 	@Override
@@ -41,8 +41,9 @@ public class Player extends Creature{
 	public void render(Graphics g) {
 		g.drawImage(Assets.draav_female, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 		
-		g.setColor(Color.red);
-		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+		// Debug collision hitbox
+		//g.setColor(Color.red);
+		//g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
 	}
 		
 }

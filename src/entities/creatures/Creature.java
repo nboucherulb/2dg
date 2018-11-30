@@ -36,14 +36,21 @@ public abstract class Creature extends Entity {
 			if(!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILE_HEIGHT) &&
 					!collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)){
 				x += xMove;
+			} else{
+				// the -1 here allows a 1px gap to avoid glueing to the obstacle
+				x = tx * Tile.TILE_WIDTH - bounds.x - bounds.width -1;
 			}
+			
 		} else if(xMove < 0){ // moving left
 			int tx = (int) (x + xMove + bounds.x) / Tile.TILE_WIDTH;
 			if(!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILE_HEIGHT) &&
 					!collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)){
 				x += xMove;
+			} else{
+				// the -1 here allows a 1px gap to avoid glueing to the obstacle
+				x = tx * Tile.TILE_WIDTH + Tile.TILE_WIDTH - bounds.x;
 			}
-		}
+		} 
 	}
 	
 	public void moveY(){
@@ -52,12 +59,18 @@ public abstract class Creature extends Entity {
 			if(!collisionWithTile((int) (x + bounds.x) / Tile.TILE_WIDTH, ty) &&
 					!collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)){
 				y += yMove;
+			}else{
+				// the -1 here allows a 1px gap to avoid glueing to the obstacle
+				y = ty * Tile.TILE_HEIGHT + Tile.TILE_HEIGHT - bounds.y;
 			}
 		} else if(yMove > 0){ // moving down
 			int ty = (int) (y +  yMove + bounds.y + bounds.height) / Tile.TILE_HEIGHT;
 			if(!collisionWithTile((int) (x + bounds.x) / Tile.TILE_WIDTH, ty) &&
 					!collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILE_WIDTH, ty)){
 				y += yMove;
+			} else{
+				// the -1 here allows a 1px gap to avoid glueing to the obstacle
+				y = ty * Tile.TILE_HEIGHT - bounds.y - bounds.height -1;
 			}
 		}		
 	}

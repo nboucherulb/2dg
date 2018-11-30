@@ -80,10 +80,10 @@ public class Assets {
 	}
 	
 	private static void initCharacters(){
-		SpriteSheet draavFsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_female_32.png"));
+		SpriteSheet draavFsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_female_64.png"));
 		SpriteSheet draavMsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_male_32.png"));
 		
-		draav_female = draavFsheet.crop(0, 0, width, height);
+		draav_female = draavFsheet.crop(0, 0, large_width, large_height);
 		draav_male = draavMsheet.crop(0, 0, width, height);
 	}
 	
