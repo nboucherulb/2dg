@@ -48,6 +48,9 @@ public class Game implements Runnable {
 	// Camera
 	private GameCamera gameCamera;
 	
+	// Handler
+	private Handler handler;
+	
 	public Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -60,12 +63,13 @@ public class Game implements Runnable {
 		this.display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keymanager);	
 		
-		gameCamera = new GameCamera(this, 0, 0);
+		gameCamera = new GameCamera(this, 0, 0);		
+		handler = new Handler(this);
 		
-		gameState = new GameState(this);		
-		mainMenuState = new MainMenuState(this);
-		settingsState = new SettingsState(this);
-		savesState = new SavesState(this);
+		gameState = new GameState(handler);		
+		mainMenuState = new MainMenuState(handler);
+		settingsState = new SettingsState(handler);
+		savesState = new SavesState(handler);
 		
 		State.setState(gameState);
 	}

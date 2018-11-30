@@ -2,12 +2,12 @@ package state;
 
 import java.awt.Graphics;
 
-import main.Game;
+import main.Handler;
 
 public class SavesState extends State{
 
-	public SavesState(Game game){
-		super(game);
+	public SavesState(Handler handler){
+		super(handler);
 	}
 	
 	@Override
