@@ -40,6 +40,10 @@ public class World {
 	}
 	
 	public Tile getTile(int x, int y){
+		// if the player is glitched outside the map, it'll stand on a ghost grass tile so the game doesn't crash
+		if(x < 0 || y < 0 || x >= width || y >= height)
+			return Tile.grassTile;		
+		
 		Tile t = Tile.tiles[tiles[x][y]];
 		if(t == null)
 			return Tile.grassTile;
