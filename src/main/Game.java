@@ -63,8 +63,8 @@ public class Game implements Runnable {
 		this.display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keymanager);	
 		
-		gameCamera = new GameCamera(this, 0, 0);		
 		handler = new Handler(this);
+		gameCamera = new GameCamera(handler, 0, 0);		
 		
 		gameState = new GameState(handler);		
 		mainMenuState = new MainMenuState(handler);

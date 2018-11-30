@@ -13,10 +13,18 @@ public class Handler {
 		this.game = game;
 	}
 	
+	/**
+	 * 
+	 * @return the width of the window
+	 */
 	public int getWidth(){
 		return this.game.getWidth();
 	}
 	
+	/**
+	 * 
+	 * @return the height of the window
+	 */
 	public int getHeight(){
 		return this.game.getHeight();
 	}

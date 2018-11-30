@@ -8,12 +8,14 @@ public abstract class Creature extends Entity {
 	
 	public static final int DEFAULT_HEALTH = 10;
 	public static final float DEFAULT_SPEED = 3.0f;
+	public static final float DEFAULT_SPRINT = 1.5f;
 	
 	public static final int DEFAULT_CREATURE_WIDTH = 64;
 	public static final int DEFAULT_CREATURE_HEIGHT = 64;
 
 	protected int health;
 	protected float speed;
+	protected float sprintModifier;
 	
 	protected float xMove, yMove;
 	
@@ -21,6 +23,7 @@ public abstract class Creature extends Entity {
 		super(handler, x, y, width, height);
 		health = DEFAULT_HEALTH;
 		speed = DEFAULT_SPEED;
+		sprintModifier = DEFAULT_SPRINT;
 		this.xMove = 0;
 		this.yMove = 0;
 	}
