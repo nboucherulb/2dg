@@ -2,8 +2,12 @@ package display;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.util.List;
 
 import javax.swing.JFrame;
+
+import gfx.Assets;
 
 public class Display {
 	
@@ -27,7 +31,8 @@ public class Display {
 		frame.setSize(this.width, this.height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frame.setLocationRelativeTo(null);		
+		frame.setIconImages(Assets.trees);
 		frame.setVisible(true);
 		
 		canvas = new Canvas();

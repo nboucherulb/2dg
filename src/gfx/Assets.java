@@ -1,6 +1,12 @@
 package gfx;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ImageIcon;
 
 public class Assets {
 	
@@ -8,6 +14,8 @@ public class Assets {
 	public static BufferedImage textured_grass;
 	public static BufferedImage draav_female;
 	public static BufferedImage draav_male;
+	
+	public static List<Image> trees = new ArrayList<>();
 	
 	private static final int width = 32;
 	private static final int height = 32;
@@ -21,7 +29,12 @@ public class Assets {
 		draav_female = draavFsheet.crop(0, 0, width, height);
 		draav_male = draavMsheet.crop(0, 0, width, height);
 		flowered_grass = grassSheet.crop(0, 0, width, height);
-		textured_grass = grassSheet.crop(0, height*2, width, height);
+		textured_grass = grassSheet.crop(0, height*2, width, height);		
+		
+		trees.add(new ImageIcon(ImageLoader.loadImage("/textures/trees/tree_16.png")).getImage());
+		trees.add(new ImageIcon(ImageLoader.loadImage("/textures/trees/tree_32.png")).getImage());
+		trees.add(new ImageIcon(ImageLoader.loadImage("/textures/trees/tree_64.png")).getImage());
+		trees.add(new ImageIcon(ImageLoader.loadImage("/textures/trees/tree_128.png")).getImage());
 	}
 	
 }

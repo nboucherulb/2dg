@@ -51,9 +51,9 @@ public class Game implements Runnable {
 	}
 	
 	private void init(){
-		this.display = new Display(title, width, height);
-		display.getFrame().addKeyListener(keymanager);
 		Assets.init();
+		this.display = new Display(title, width, height);
+		display.getFrame().addKeyListener(keymanager);		
 		
 		gameState = new GameState(this);		
 		mainMenuState = new MainMenuState(this);
