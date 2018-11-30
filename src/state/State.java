@@ -2,6 +2,8 @@ package state;
 
 import java.awt.Graphics;
 
+import main.Game;
+
 /**
  * 
  * @author Nicolas
@@ -21,6 +23,12 @@ public abstract class State {
 	}
 	
 	// CLASS METHODS
+	protected Game game;
+	
+	public State(Game game){
+		this.game = game;
+	}
+	
 	public abstract void tick();
 	
 	public abstract void render(Graphics g);

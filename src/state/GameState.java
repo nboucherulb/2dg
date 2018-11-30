@@ -4,13 +4,15 @@ import java.awt.Graphics;
 
 import entities.creatures.Player;
 import gfx.Assets;
+import main.Game;
 
 public class GameState extends State {
 	
 	private Player player;
 
-	public GameState(){
-		player = new Player(100, 100);
+	public GameState(Game game){
+		super(game);
+		player = new Player(game, 100, 100);
 	}
 	
 	public void tick() {
