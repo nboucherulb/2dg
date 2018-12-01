@@ -2,11 +2,19 @@ package entities.creatures;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.lang.annotation.AnnotationTypeMismatchException;
 
+import gfx.Animation;
 import gfx.Assets;
 import main.Handler;
 
 public class Player extends Creature{
+	
+	private Animation animWalkDown, 
+					animIdleFront, animIdleBack, animIdleLeft, animIdleRight;	
+	private final static int UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3;
+	private int idleDirection;
 	
 	public Player(Handler handler, float x, float y) {
 		// default width and height
@@ -15,10 +23,26 @@ public class Player extends Creature{
 		bounds.y = 19*2;
 		bounds.width = 16;
 		bounds.height = 24;
+		
+		// Animations
+		idleDirection = DOWN;
+		animWalkDown = new Animation(50, Assets._DraFWalkDown);
+		animIdleFront = new Animation(200, Assets._DraFIdleFront);
+		animIdleBack = new Animation(200, Assets._DraFIdleBack);
+		animIdleLeft = new Animation(200, Assets._DraFIdleSideL);
+		animIdleRight = new Animation(200, Assets._DraFIdleSideR);
 	}
 	
 	@Override
 	public void tick() {
+		// Animations 
+		animIdleFront.tick();
+		animIdleBack.tick();
+		animIdleLeft.tick();
+		animIdleRight.tick();
+		animWalkDown.tick();
+		
+		// Movement
 		getInput();
 		move();
 		handler.getGameCamera().centerOnEntity(this);
@@ -27,15 +51,22 @@ public class Player extends Creature{
 	private void getInput(){
 		this.xMove = 0;
 		this.yMove = 0;
-		if(handler.getKeyManager().up)
+		if(handler.getKeyManager().up){
 			yMove -= speed;
-		if(handler.getKeyManager().down)
+			idleDirection = UP;
+		}
+		if(handler.getKeyManager().down){
 			yMove += speed;
-		if(handler.getKeyManager().left)
+			idleDirection = DOWN;
+		}
+		if(handler.getKeyManager().left){
 			xMove -= speed;
-		if(handler.getKeyManager().right)
+			idleDirection = LEFT;
+		}
+		if(handler.getKeyManager().right){
 			xMove += speed;
-		
+			idleDirection = RIGHT;
+		}
 		if(handler.getKeyManager().shift){
 			xMove *= sprintModifier;
 			yMove *= sprintModifier;
@@ -45,11 +76,38 @@ public class Player extends Creature{
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.draav_female, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 		
 		// Debug collision hitbox
 		//g.setColor(Color.red);
 		//g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+	}
+	
+	private BufferedImage getCurrentAnimationFrame(){
+		if(xMove < 0){ // Move left
+			return animIdleLeft.getCurrentFrame();
+		}else if(xMove > 0){ // Move right
+			return animIdleRight.getCurrentFrame();
+		}else if(yMove < 0){ // Move up
+			return animIdleBack.getCurrentFrame();
+		}else if(yMove > 0){ // Move down
+			return animWalkDown.getCurrentFrame();
+		}else { // Stay still
+			switch (idleDirection) {
+			case UP:
+				return animIdleBack.getCurrentFrame();
+			case DOWN:
+				return animIdleFront.getCurrentFrame();
+			case LEFT:
+				return animIdleLeft.getCurrentFrame();
+			case RIGHT:
+				return animIdleRight.getCurrentFrame();
+
+			default:
+				return animIdleFront.getCurrentFrame();
+			}
+			
+		}
 	}
 		
 }

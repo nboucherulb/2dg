@@ -12,7 +12,6 @@ public class Assets {
 	
 	public static BufferedImage flowered_grass;
 	public static BufferedImage textured_grass;
-	public static BufferedImage draav_female;
 	public static BufferedImage draav_male;
 	
 	public static BufferedImage trees_b1;
@@ -30,6 +29,16 @@ public class Assets {
 	public static BufferedImage rock_tile_ab_2;
 	public static BufferedImage rock_tile_ac_1;
 	public static BufferedImage rock_tile_ac_2;
+	
+	// #################### ANIMATIONS ################################### 
+	
+	public static BufferedImage[] _DraFIdleFront;
+	public static BufferedImage[] _DraFIdleBack;
+	public static BufferedImage[] _DraFIdleSideL;
+	public static BufferedImage[] _DraFIdleSideR;
+	public static BufferedImage[] _DraFWalkDown;	
+	
+	// ################################################################### 
 	
 	public static List<Image> trees = new ArrayList<>();
 	
@@ -52,6 +61,18 @@ public class Assets {
 		
 		// Characters
 		initCharacters();
+	}
+	
+	public static void fillAnimTableWith(BufferedImage[] animationBuffer, int nbRows, int nbColumns, int width, int height, SpriteSheet sheet){
+		int i = 0;
+		for(int y = 0; y < nbRows; y++){
+			for(int x = 0; x < nbColumns; x++){
+				if(i >= animationBuffer.length)
+					return;				
+				animationBuffer[i] = sheet.crop(x*width, y*height, width, height);
+				i++;
+			}
+		}
 	}
 	
 	private static void initIconTree(){
@@ -79,12 +100,38 @@ public class Assets {
 		rock_tile_ac_2 = rockSheet.crop(width*2, height, width, height);
 	}
 	
-	private static void initCharacters(){
-		SpriteSheet draavFsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_female_64.png"));
-		SpriteSheet draavMsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_male_32.png"));
+	private static void initCharacters(){		
+		initDraavF();
+		initDraavM();
+	}
+	
+	private static void initDraavF(){
+		SpriteSheet draavFsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_F/idle/DraF_idle_front.png"));
+		_DraFIdleFront = new BufferedImage[8]; 
+		fillAnimTableWith(_DraFIdleFront, 2, 4, large_width, large_height, draavFsheet);
 		
-		draav_female = draavFsheet.crop(0, 0, large_width, large_height);
+		draavFsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_F/idle/DraF_idle_back.png"));
+		_DraFIdleBack = new BufferedImage[8]; 
+		fillAnimTableWith(_DraFIdleBack, 2, 4, large_width, large_height, draavFsheet);
+		
+		draavFsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_F/idle/DraF_idle_sideL.png"));
+		_DraFIdleSideL = new BufferedImage[8];
+		fillAnimTableWith(_DraFIdleSideL, 2, 4, large_width, large_height, draavFsheet);
+		
+		draavFsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_F/idle/DraF_idle_sideR.png"));
+		_DraFIdleSideR = new BufferedImage[8];
+		fillAnimTableWith(_DraFIdleSideR, 2, 4, large_width, large_height, draavFsheet);
+		
+		draavFsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_F/walk/DraF_walk_down.png"));
+		_DraFWalkDown = new BufferedImage[12]; 
+		fillAnimTableWith(_DraFWalkDown, 3, 4, large_width, large_height, draavFsheet);
+
+	}
+	
+	private static void initDraavM(){
+		SpriteSheet draavMsheet = new SpriteSheet(ImageLoader.loadImage("/characters/Draav_male_32.png"));
 		draav_male = draavMsheet.crop(0, 0, width, height);
+		
 	}
 	
 	private static void initTreesB(){
