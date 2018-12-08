@@ -1,6 +1,7 @@
 package entities;
 
 import entities.creatures.Player;
+import entities.statics.Rock;
 import main.Handler;
 
 import java.awt.Graphics;
@@ -19,6 +20,9 @@ public class EntityManager {
     this.player = player;
     entities = new ArrayList<Entity>();
     addEntity(player);
+
+    Rock rock = new Rock(handler, 360, 360);
+    addEntity(rock);
   }
 
   public void tick() {
