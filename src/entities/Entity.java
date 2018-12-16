@@ -48,6 +48,9 @@ public abstract class Entity {
     g.setColor(Color.red);
     g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
         (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+    g.setColor(Color.BLUE);
+    g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
+        (int) (y - handler.getGameCamera().getyOffset()), 2, this.height);
   }
 
 

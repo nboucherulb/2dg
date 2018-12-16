@@ -13,6 +13,12 @@ public abstract class Creature extends Entity {
   public static final int DEFAULT_CREATURE_WIDTH = 64;
   public static final int DEFAULT_CREATURE_HEIGHT = 64;
 
+  public static final int SMALL_CREATURE_WIDTH = 32;
+  public static final int SMALL_CREATURE_HEIGHT = 32;
+
+  public static final int TINY_CREATURE_WIDTH = 16;
+  public static final int TINY_CREATURE_HEIGHT = 16;
+
   protected int health;
   protected float speed;
   protected float sprintModifier;

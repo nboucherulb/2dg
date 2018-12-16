@@ -2,6 +2,9 @@ package main.worlds;
 
 import entities.EntityManager;
 import entities.creatures.Player;
+import entities.statics.Rock;
+import entities.statics.Tree;
+import entities.statics.Tree.TreeType;
 import main.Handler;
 import main.tiles.Tile;
 import main.utils.Utils;
@@ -23,6 +26,15 @@ public class World {
   public World(Handler handler, String path) {
     this.handler = handler;
     entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+
+    // entityManager.addEntity(new Rock(handler, 160, 260));
+    entityManager.addEntity(new Rock(handler, 160, 300));
+    entityManager.addEntity(new Rock(handler, 224, 300));
+    entityManager.addEntity(new Rock(handler, 288, 300));
+
+    entityManager.addEntity(new Tree(handler, 180, 75));
+    entityManager.addEntity(new Tree(handler, 264, 75, TreeType.WINTER_01));
+    entityManager.addEntity(new Tree(handler, 348, 75, TreeType.WINTER_02));
 
     loadWorld(path);
 

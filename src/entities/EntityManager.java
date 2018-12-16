@@ -1,11 +1,11 @@
 package entities;
 
 import entities.creatures.Player;
-import entities.statics.Rock;
 import main.Handler;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class EntityManager {
 
@@ -15,14 +15,22 @@ public class EntityManager {
   // Contains all the entities of the game
   private ArrayList<Entity> entities;
 
+  // returns negative if 'a' should be rendered BEFORE 'b', positive if 'a' should be rendered AFTER
+  // 'b'.
+  private Comparator<Entity> renderSorter = new Comparator<Entity>() {
+    @Override
+    public int compare(Entity a, Entity b) {
+      if (a.getY() + a.getHeight() < b.getY() + b.getHeight())
+        return -1;
+      return 1;
+    }
+  };
+
   public EntityManager(Handler handler, Player player) {
     this.handler = handler;
     this.player = player;
     entities = new ArrayList<Entity>();
     addEntity(player);
-
-    Rock rock = new Rock(handler, 360, 360);
-    addEntity(rock);
   }
 
   public void tick() {
@@ -30,6 +38,7 @@ public class EntityManager {
       Entity e = entities.get(i);
       e.tick();
     }
+    entities.sort(renderSorter);
   }
 
   public void render(Graphics g) {
