@@ -28,6 +28,13 @@ public class Assets {
   public static BufferedImage tree_winter_01;
   public static BufferedImage tree_winter_02;
 
+  public static BufferedImage long_rock;
+  public static BufferedImage long_rock_mossy;
+  public static BufferedImage duo_rock;
+  public static BufferedImage duo_rock_mossy;
+  public static BufferedImage egg_rock;
+  public static BufferedImage egg_rock_mossy;
+
   public static BufferedImage rock_tile_aa_1;
   public static BufferedImage rock_tile_aa_2;
   public static BufferedImage rock_tile_ab_1;
@@ -50,6 +57,10 @@ public class Assets {
   public static BufferedImage[] _DraFIdleSideR;
   public static BufferedImage[] _DraFWalkDown;
 
+  // ######################## GUI ######################################
+
+  public static BufferedImage[] btn_start;
+
   // ###################################################################
 
   public static List<Image> trees = new ArrayList<>();
@@ -66,6 +77,7 @@ public class Assets {
   public static void init() {
     // Icon
     initIconTree();
+    initGuiButtons();
 
     // Background
     initGrassTiles();
@@ -73,6 +85,7 @@ public class Assets {
 
     // Obstacles
     initTrees();
+    initRocks();
     // initTreesB();
 
     // Characters
@@ -90,6 +103,14 @@ public class Assets {
         i++;
       }
     }
+  }
+
+  private static void initGuiButtons() {
+    SpriteSheet grassSheet =
+        new SpriteSheet(ImageLoader.loadImage("/textures/gui/buttons/buttons.png"));
+    btn_start = new BufferedImage[2];
+    btn_start[0] = grassSheet.crop(0, 0, 192, large_height);
+    btn_start[1] = grassSheet.crop(0, large_height, 192, large_height);
   }
 
   private static void initIconTree() {
@@ -216,6 +237,17 @@ public class Assets {
     trees_b3_swap = treesBSheet.crop(width, large_height, width, large_height);
     trees_b2_swap = treesBSheet.crop(width * 2, large_height, width, large_height);
     trees_b1_swap = treesBSheet.crop(width * 3, large_height, width, large_height);
+  }
+
+  private static void initRocks() {
+    SpriteSheet rockSheet = new SpriteSheet(ImageLoader.loadImage("/textures/obstacles/rocks.png"));
+
+    long_rock = rockSheet.crop(0, 0, large_width, height);
+    long_rock_mossy = rockSheet.crop(large_width, 0, large_width, height);
+    egg_rock = rockSheet.crop(0, height, width, height);
+    duo_rock = rockSheet.crop(width, height, width, height);
+    egg_rock_mossy = rockSheet.crop(width * 2, height, width, height);
+    duo_rock_mossy = rockSheet.crop(width * 3, height, width, height);
   }
 
 }

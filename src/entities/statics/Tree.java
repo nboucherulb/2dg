@@ -34,6 +34,11 @@ public class Tree extends StaticEntity {
   }
 
   @Override
+  public void die() {
+
+  }
+
+  @Override
   public void render(Graphics g) {
     BufferedImage asset;
     switch (type) {
@@ -58,7 +63,7 @@ public class Tree extends StaticEntity {
     g.drawImage(asset, (int) (x - handler.getGameCamera().getxOffset()),
         (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
-    // showCollisionBox(g);
+    showCollisionBox(g);
   }
 
   public enum TreeType {

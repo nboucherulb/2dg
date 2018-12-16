@@ -3,6 +3,7 @@ package main.worlds;
 import entities.EntityManager;
 import entities.creatures.Player;
 import entities.statics.Rock;
+import entities.statics.Rock.RockType;
 import entities.statics.Tree;
 import entities.statics.Tree.TreeType;
 import main.Handler;
@@ -28,9 +29,12 @@ public class World {
     entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 
     // entityManager.addEntity(new Rock(handler, 160, 260));
-    entityManager.addEntity(new Rock(handler, 160, 300));
-    entityManager.addEntity(new Rock(handler, 224, 300));
-    entityManager.addEntity(new Rock(handler, 288, 300));
+    entityManager.addEntity(new Rock(handler, 160, 450, RockType.LONG));
+    entityManager.addEntity(new Rock(handler, 250, 450, RockType.DUO));
+    entityManager.addEntity(new Rock(handler, 340, 450, RockType.EGG));
+    entityManager.addEntity(new Rock(handler, 160, 500, RockType.LONG_MOSSY));
+    entityManager.addEntity(new Rock(handler, 250, 500, RockType.DUO_MOSSY));
+    entityManager.addEntity(new Rock(handler, 340, 500, RockType.EGG_MOSSY));
 
     entityManager.addEntity(new Tree(handler, 180, 75));
     entityManager.addEntity(new Tree(handler, 264, 75, TreeType.WINTER_01));

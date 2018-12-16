@@ -1,20 +1,27 @@
 package entities.creatures;
 
+import entities.Entity;
 import gfx.Animation;
 import gfx.Assets;
 import main.Handler;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Player extends Creature {
 
+  // Animations
   // private Animation animWalkDown, animIdleFront, animIdleBack, animIdleLeft, animIdleRight;
   private final static int UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3;
   private int lastDirection;
   private boolean isSprinting, isChannelling;
   private Animation animIdleLeft, animIdleRight, animWalkLeft, animWalkRight, animRunLeft,
       animRunRight, animSpellCastLeft, animSpellCastRight;
+
+  // Attack timer
+  private long lastAttackTimer, attackCooldown = 200, attackTimer = attackCooldown,
+      attackDuration = 100;
 
   public Player(Handler handler, float x, float y) {
     // default width and height
@@ -55,13 +62,72 @@ public class Player extends Creature {
     getInput();
     move();
     handler.getGameCamera().centerOnEntity(this);
+
+    // Attacks
+    checkAttacks();
+  }
+
+  private void checkAttacks() {
+    if (isChannelling) {
+      meleeAttack();
+    } else {
+      return;
+    }
+  }
+
+  public void meleeAttack() {
+    attackTimer += System.currentTimeMillis() - lastAttackTimer;
+    lastAttackTimer = System.currentTimeMillis();
+    if (attackTimer > attackDuration) {
+      isChannelling = false;
+    }
+    if (attackTimer < attackCooldown) {
+      return;
+    }
+
+    Rectangle cb = getCollisionBounds(0, 0);
+    // ar = attack rectangle
+    Rectangle ar = new Rectangle();
+    // if the player is at arSize or less pixels from an entity, it can hit it.
+    int arSize = 20;
+    ar.width = arSize;
+    ar.height = arSize;
+
+    if (lastDirection == UP) {
+      ar.x = cb.x + cb.width / 2 - arSize / 2;
+      ar.y = cb.y - arSize;
+    } else if (lastDirection == DOWN) {
+      ar.x = cb.x + cb.width / 2 - arSize / 2;
+      ar.y = cb.y + cb.height;
+    } else if (lastDirection == LEFT) {
+      ar.x = cb.x - arSize;
+      ar.y = cb.y + cb.height / 2 - arSize / 2;
+    } else if (lastDirection == RIGHT) {
+      ar.x = cb.x + cb.width;
+      ar.y = cb.y + cb.height / 2 - arSize / 2;
+    }
+
+    attackTimer = 0;
+
+    for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+      if (e.equals(this))
+        continue;
+      if (e.getCollisionBounds(0, 0).intersects(ar)) {
+        e.hurt(1);
+        return;
+      }
+    }
+  }
+
+  @Override
+  public void die() {
+    System.out.println("You lose");
   }
 
   private void getInput() {
     this.xMove = 0;
     this.yMove = 0;
     isSprinting = false;
-    isChannelling = false;
     if (handler.getKeyManager().up) {
       yMove -= speed;
     }
